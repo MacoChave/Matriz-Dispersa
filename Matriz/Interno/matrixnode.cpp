@@ -30,6 +30,16 @@ MatrixNode::~MatrixNode()
     bottom = NULL;
 }
 
+TADMatrixNode *MatrixNode::getData()
+{
+    return data;
+}
+
+void MatrixNode::setData(TADMatrixNode *value)
+{
+    data = value;
+}
+
 MatrixNode *MatrixNode::getPreview()
 {
     return preview;

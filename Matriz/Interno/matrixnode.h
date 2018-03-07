@@ -13,6 +13,8 @@ public:
     MatrixNode();
     MatrixNode(TADMatrixNode *value);
     ~MatrixNode();
+    TADMatrixNode *getData();
+    void setData(TADMatrixNode *value);
     MatrixNode *getPreview();
     void setPreview(MatrixNode *value);
     MatrixNode *getNext();

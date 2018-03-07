@@ -1,13 +1,12 @@
 #ifndef TADCOLUMN_H
 #define TADCOLUMN_H
 #include <QString>
-#include "Matriz/matrixnode.h"
-#include "tadmatrixnode.h"
+#include "../Interno/columnlist.h"
 
 class TADColumn
 {
     int i;
-    MatrixNode<TADMatrixNode *> *matrixNode;
+    ColumnList *columnInside;
 public:
     TADColumn();
     TADColumn(int _i);
@@ -15,6 +14,8 @@ public:
 
     int getI();
     int compare(TADColumn *column);
+    ColumnList *getColumnInside();
+    void addColumnInside(); //TAD Nodo Matriz
     QString toString();
     QString getNodeName();
 };

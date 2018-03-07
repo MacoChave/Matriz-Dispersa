@@ -1,10 +1,12 @@
 #ifndef TADROW_H
 #define TADROW_H
 #include <QString>
+#include "../Interno/rowlist.h"
 
 class TADRow
 {
     int j;
+    RowList *rowInside;
 public:
     TADRow();
     TADRow(int _j);
@@ -12,6 +14,8 @@ public:
 
     int getJ();
     int compare(TADRow *row);
+    RowList *getRowInside();
+    void setRowInside(); // TAD Nodo Matriz
     QString toString();
     QString getNodeName();
 };

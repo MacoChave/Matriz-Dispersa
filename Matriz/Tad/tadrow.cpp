@@ -3,16 +3,21 @@
 TADRow::TADRow()
 {
     j = 0;
+    rowInside = NULL;
 }
 
 TADRow::TADRow(int _j)
 {
     j = _j;
+    rowInside = NULL;
 }
 
 TADRow::~TADRow()
 {
     j = 0;
+    if (rowInside != NULL)
+        delete rowInside;
+    rowInside = NULL;
 }
 
 int TADRow::getJ()
@@ -28,6 +33,15 @@ int TADRow::compare(TADRow *row)
         return -1;
 
     return 0;
+}
+
+RowList *TADRow::getRowInside()
+{
+    return rowInside;
+}
+
+void TADRow::setRowInside()
+{
 }
 
 QString TADRow::toString()

@@ -3,16 +3,21 @@
 TADColumn::TADColumn()
 {
     i = 0;
+    columnInside = NULL;
 }
 
 TADColumn::TADColumn(int _i)
 {
     i = _i;
+    columnInside = NULL;
 }
 
 TADColumn::~TADColumn()
 {
     i = 0;
+    if (columnInside != NULL)
+        delete columnInside;
+    columnInside = NULL;
 }
 
 int TADColumn::getI()
@@ -28,6 +33,15 @@ int TADColumn::compare(TADColumn *column)
         return -1;
 
     return 0;
+}
+
+ColumnList *TADColumn::getColumnInside()
+{
+    return columnInside;
+}
+
+void TADColumn::addColumnInside()
+{
 }
 
 QString TADColumn::toString()

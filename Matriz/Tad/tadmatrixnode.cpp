@@ -2,13 +2,14 @@
 
 TADMatrixNode::TADMatrixNode()
 {
-    column = row = 0;
+    column = row = level = 0;
 }
 
 TADMatrixNode::TADMatrixNode(int _column, int _row)
 {
     column = _column;
     row = _row;
+    level = 0;
 }
 
 TADMatrixNode::~TADMatrixNode()

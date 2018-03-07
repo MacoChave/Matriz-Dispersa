@@ -3,13 +3,13 @@
 TADColumn::TADColumn()
 {
     i = 0;
-    columnInside = NULL;
+    columnInside = new ColumnList();
 }
 
 TADColumn::TADColumn(int _i)
 {
     i = _i;
-    columnInside = NULL;
+    columnInside = new ColumnList();
 }
 
 TADColumn::~TADColumn()
@@ -40,8 +40,9 @@ ColumnList *TADColumn::getColumnInside()
     return columnInside;
 }
 
-void TADColumn::addColumnInside()
+MatrixNode *TADColumn::addColumnInside(TADMatrixNode *value)
 {
+    return columnInside->insert(value);
 }
 
 QString TADColumn::toString()

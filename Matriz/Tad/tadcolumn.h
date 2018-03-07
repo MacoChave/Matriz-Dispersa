@@ -15,7 +15,7 @@ public:
     int getI();
     int compare(TADColumn *column);
     ColumnList *getColumnInside();
-    void addColumnInside(); //TAD Nodo Matriz
+    MatrixNode *addColumnInside(TADMatrixNode *value);
     QString toString();
     QString getNodeName();
 };

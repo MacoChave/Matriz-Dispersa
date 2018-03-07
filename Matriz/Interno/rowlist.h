@@ -8,7 +8,7 @@ class RowList
     MatrixNode *head;
     MatrixNode *tail;
 
-    MatrixNode *insert(MatrixNode *current, TADMatrixNode *value);
+    MatrixNode *insert(MatrixNode *current, MatrixNode *value);
     MatrixNode *get(MatrixNode *current, TADMatrixNode *value);
 public:
     RowList();
@@ -20,15 +20,15 @@ public:
     void clear();
 
     /* MODIFICADORES */
-    MatrixNode *push_front(TADMatrixNode *value);
-    MatrixNode *push_back(TADMatrixNode *value);
-    MatrixNode *insert(TADMatrixNode *value);
+    MatrixNode *push_front(MatrixNode *value);
+    MatrixNode *push_back(MatrixNode *value);
+    MatrixNode *insert(MatrixNode *value);
     MatrixNode *removeFirst();
     MatrixNode *removeLast();
     MatrixNode *removeOne(TADMatrixNode *value);
 
     /* OPERACIONES */
-    MatrixNode *fist();
+    MatrixNode *first();
     MatrixNode *last();
     TADMatrixNode *front();
     TADMatrixNode *back();

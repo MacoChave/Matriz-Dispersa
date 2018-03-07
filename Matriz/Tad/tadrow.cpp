@@ -3,13 +3,13 @@
 TADRow::TADRow()
 {
     j = 0;
-    rowInside = NULL;
+    rowInside = new RowList();
 }
 
 TADRow::TADRow(int _j)
 {
     j = _j;
-    rowInside = NULL;
+    rowInside = new RowList();
 }
 
 TADRow::~TADRow()
@@ -40,8 +40,9 @@ RowList *TADRow::getRowInside()
     return rowInside;
 }
 
-void TADRow::setRowInside()
+void TADRow::addRowInside(MatrixNode *value)
 {
+    rowInside->insert(value);
 }
 
 QString TADRow::toString()

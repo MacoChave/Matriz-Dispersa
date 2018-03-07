@@ -1,11 +1,11 @@
 #include "rowlist.h"
 
-MatrixNode *RowList::insert(MatrixNode *current, TADMatrixNode *value)
+MatrixNode *RowList::insert(MatrixNode *current, MatrixNode *value)
 {
     if (current != NULL)
         return NULL;
 
-    int compare = current->getData()->compareRow(value);
+    int compare = current->getData()->compareRow(value->getData());
 
     if (compare == 0)
         return current;
@@ -13,14 +13,13 @@ MatrixNode *RowList::insert(MatrixNode *current, TADMatrixNode *value)
     {
         if (compare > 0)
         {
-            MatrixNode *temporal = new MatrixNode(value);
-            temporal->setNext(current);
-            temporal->setPreview(current->getPreview());
-            current->getPreview()->setNext(temporal);
-            current->setPreview(temporal);
+            value->setNext(current);
+            value->setPreview(current->getPreview());
+            current->getPreview()->setNext(value);
+            current->setPreview(value);
             count++;
 
-            return temporal;
+            return value;
         }
         else
             return insert(current->getNext(), value);
@@ -59,7 +58,7 @@ RowList::~RowList()
 
 bool RowList::isEmpty()
 {
-    return head == NULL;
+    return (head == NULL);
 }
 
 int RowList::size()
@@ -71,57 +70,52 @@ void RowList::clear()
 {
 }
 
-MatrixNode *RowList::push_front(TADMatrixNode *value)
+MatrixNode *RowList::push_front(MatrixNode *value)
 {
-    MatrixNode *node = new MatrixNode(value);
-
     if (isEmpty())
-        head = tail = node;
+        head = tail = value;
     else
     {
-        node->setNext(head);
-        head->setPreview(node);
-        head = node;
+        value->setNext(head);
+        head->setPreview(value);
+        head = value;
     }
 
     count++;
 
-    return node;
+    return value;
 }
 
-MatrixNode *RowList::push_back(TADMatrixNode *value)
+MatrixNode *RowList::push_back(MatrixNode *value)
 {
-    MatrixNode *node = new MatrixNode(value);
-
     if (isEmpty())
-        head = tail = node;
+        head = tail = value;
     else
     {
-        node->setPreview(tail);
-        tail->setNext(node);
-        tail = node;
+        value->setPreview(tail);
+        tail->setNext(value);
+        tail = value;
     }
 
     count++;
 
-    return node;
+    return value;
 }
 
-MatrixNode *RowList::insert(TADMatrixNode *value)
+MatrixNode *RowList::insert(MatrixNode *value)
 {
     if (isEmpty())
     {
-        MatrixNode *temporal = new MatrixNode(value);
-        head = tail = temporal;
+        head = tail = value;
         count++;
 
-        return temporal;
+        return value;
     }
     else
     {
-        if (head->getData()->compareRow(value) > 0)
+        if (head->getData()->compareRow(value->getData()) > 0)
             return push_front(value);
-        else if (tail->getData()->compareRow(value) < 0)
+        else if (tail->getData()->compareRow(value->getData()) < 0)
             return push_back(value);
         else
             return insert(head, value);
@@ -187,7 +181,7 @@ MatrixNode *RowList::removeOne(TADMatrixNode *value)
         return NULL;
 }
 
-MatrixNode *RowList::fist()
+MatrixNode *RowList::first()
 {
     return head;
 }

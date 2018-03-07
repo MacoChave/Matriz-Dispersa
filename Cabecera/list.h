@@ -105,8 +105,8 @@ List<T>::List()
 template <typename T>
 List<T>::List(List<T> *value)
 {
-    head = value->front();
-    tail = value->back();
+    head = value->first();
+    tail = value->last();
     count = value->size();
 
     value = NULL;

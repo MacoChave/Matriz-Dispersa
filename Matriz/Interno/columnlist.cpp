@@ -65,7 +65,7 @@ ColumnList::~ColumnList()
 
 bool ColumnList::isEmpty()
 {
-    return head == NULL;
+    return (head == NULL);
 }
 
 int ColumnList::size()

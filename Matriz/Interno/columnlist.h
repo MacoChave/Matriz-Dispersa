@@ -10,6 +10,7 @@ class ColumnList
 
     MatrixNode *insert(MatrixNode *current, TADMatrixNode *value);
     MatrixNode *get(MatrixNode *current, TADMatrixNode *value);
+
 public:
     ColumnList();
     ~ColumnList();
@@ -33,7 +34,7 @@ public:
     TADMatrixNode *front();
     TADMatrixNode *back();
     MatrixNode *get(TADMatrixNode *value);
-    void graph(QString filename);
+    QString graph();
 };
 
 #endif // COLUMNAMATRIZ_H

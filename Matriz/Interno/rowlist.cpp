@@ -2,13 +2,17 @@
 
 MatrixNode *RowList::insert(MatrixNode *current, MatrixNode *value)
 {
-    if (current != NULL)
+    if (current == NULL)
         return NULL;
 
-    int compare = current->getData()->compareRow(value->getData());
+    int compare = current->getData()->compareColumn(value->getData());
 
     if (compare == 0)
+    {
+        delete value;
+        value = NULL;
         return current;
+    }
     else
     {
         if (compare > 0)
@@ -68,6 +72,12 @@ int RowList::size()
 
 void RowList::clear()
 {
+    while (!isEmpty())
+    {
+        MatrixNode *temporal = NULL;
+        temporal = removeFirst();
+        delete temporal;
+    }
 }
 
 MatrixNode *RowList::push_front(MatrixNode *value)
@@ -113,9 +123,9 @@ MatrixNode *RowList::insert(MatrixNode *value)
     }
     else
     {
-        if (head->getData()->compareRow(value->getData()) > 0)
+        if (head->getData()->compareColumn(value->getData()) > 0)
             return push_front(value);
-        else if (tail->getData()->compareRow(value->getData()) < 0)
+        else if (tail->getData()->compareColumn(value->getData()) < 0)
             return push_back(value);
         else
             return insert(head, value);
@@ -218,7 +228,17 @@ MatrixNode *RowList::get(TADMatrixNode *value)
             return NULL;
 }
 
-void RowList::graph(QString filename)
+QString RowList::graph()
 {
+    QString listGraph;
 
+    MatrixNode *temporal = head;
+    while (temporal != NULL)
+    {
+        listGraph.append(temporal->pointNode(temporal->HORIZONTAL));
+
+        temporal = temporal->getNext();
+    }
+
+    return listGraph;
 }

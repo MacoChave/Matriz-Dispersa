@@ -3,21 +3,20 @@
 TADRow::TADRow()
 {
     j = 0;
-    rowInside = new RowList();
+    internalRow = new RowList();
 }
 
 TADRow::TADRow(int _j)
 {
     j = _j;
-    rowInside = new RowList();
+    internalRow = new RowList();
 }
 
 TADRow::~TADRow()
 {
     j = 0;
-    if (rowInside != NULL)
-        delete rowInside;
-    rowInside = NULL;
+    delete internalRow;
+    internalRow = NULL;
 }
 
 int TADRow::getJ()
@@ -35,14 +34,14 @@ int TADRow::compare(TADRow *row)
     return 0;
 }
 
-RowList *TADRow::getRowInside()
+RowList *TADRow::getInternalRow()
 {
-    return rowInside;
+    return internalRow;
 }
 
-void TADRow::addRowInside(MatrixNode *value)
+void TADRow::addInternalRow(MatrixNode *value)
 {
-    rowInside->insert(value);
+    internalRow->insert(value);
 }
 
 QString TADRow::toString()
@@ -55,8 +54,37 @@ QString TADRow::toString()
 
 QString TADRow::getNodeName()
 {
-    QString name("node");
+    QString name("Row");
     name.append(QString::number(j));
 
     return name;
+}
+
+QString TADRow::createNode()
+{
+    QString str;
+    QTextStream createdNode(&str);
+    createdNode << "\t" << getNodeName();
+    createdNode << " [label = \"" << toString() << "\"];\n";
+
+    return str;
+}
+
+QString TADRow::pointNode(TADRow *next)
+{
+    QString str;
+    QTextStream nodePointers(&str);
+    if (next != NULL)
+    {
+        nodePointers << "\t" << getNodeName() << " -> " << next->getNodeName() << ";\n";
+        nodePointers << "\t" << next->getNodeName() << " -> " << getNodeName() << ";\n";
+    }
+
+    if (! internalRow->isEmpty())
+    {
+        nodePointers << "\t" << getNodeName() << " -> " << internalRow->front()->getNodeName() << ";\n";
+        nodePointers << internalRow->graph() << "\n";
+    }
+
+    return str;
 }

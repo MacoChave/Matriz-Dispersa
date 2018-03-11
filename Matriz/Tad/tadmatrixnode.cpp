@@ -14,7 +14,7 @@ TADMatrixNode::TADMatrixNode(int _column, int _row)
 
 TADMatrixNode::~TADMatrixNode()
 {
-    column = row = 0;
+    column = row = level = 0;
 }
 
 int TADMatrixNode::getColumnValue()
@@ -82,24 +82,46 @@ int TADMatrixNode::compareLevel(TADMatrixNode *value)
 
 QString TADMatrixNode::getNodeName()
 {
-    QString name("node");
-    name.append(QString::number(column));
-    name.append(QString::number(row));
-    name.append(QString::number(level));
+    QString str;
+    QTextStream name(&str);
+    name << "node_";
+    name << QString::number(column) << "_";
+    name << QString::number(row) << "_";
+    name << QString::number(level);
 
-    return name;
+    return str;
 }
 
 QString TADMatrixNode::toString()
 {
-    QString name;
-    name.append("(");
-    name.append(QString::number(column));
-    name.append(" - ");
-    name.append(QString::number(row));
-    name.append(" - ");
-    name.append(QString::number(level));
-    name.append(")");
+    QString str;
+    QTextStream name(&str);
+    name << "(";
+    name << QString::number(column) << ", " << QString::number(row) << ", " << QString::number(level);
+    name << ")";
 
-    return name;
+    return str;
+}
+
+QString TADMatrixNode::createNode()
+{
+    QString str;
+    QTextStream createdNode(&str);
+    createdNode << "\t" << getNodeName();
+    createdNode << " [label = \"" << toString() << "\"];\n";
+
+    return str;
+}
+
+QString TADMatrixNode::pointNode(TADMatrixNode *next)
+{
+    QString str;
+    QTextStream nodePointers(&str);
+    if (next != NULL)
+    {
+        nodePointers << "\t" << getNodeName() << " -> " << next->getNodeName() << ";\n";
+        nodePointers << "\t" << next->getNodeName() << " -> " << getNodeName() << ";\n";
+    }
+
+    return str;
 }

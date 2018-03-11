@@ -33,7 +33,7 @@ public:
     TADMatrixNode *front();
     TADMatrixNode *back();
     MatrixNode *get(TADMatrixNode *value);
-    void graph(QString filename);
+    QString graph();
 };
 
 #endif // FILAMATRIZ_H

@@ -1,12 +1,11 @@
 #ifndef TADCOLUMN_H
 #define TADCOLUMN_H
-#include <QString>
 #include "../Interno/columnlist.h"
 
 class TADColumn
 {
     int i;
-    ColumnList *columnInside;
+    ColumnList *internalColumn;
 public:
     TADColumn();
     TADColumn(int _i);
@@ -14,10 +13,12 @@ public:
 
     int getI();
     int compare(TADColumn *column);
-    ColumnList *getColumnInside();
-    MatrixNode *addColumnInside(TADMatrixNode *value);
+    ColumnList *getInternalColumn();
+    MatrixNode *addInternalColumn(TADMatrixNode *value);
     QString toString();
     QString getNodeName();
+    QString createNode();
+    QString pointNode(TADColumn *next);
 };
 
 #endif // TADCOLUMN_H

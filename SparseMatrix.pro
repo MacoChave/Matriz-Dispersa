@@ -27,4 +27,6 @@ HEADERS += \
     Matriz/Interno/rowlist.h \
     Cabecera/list.h \
     Cabecera/node.h \
-    Matriz/matrix.h
+    Matriz/matrix.h \
+    Matriz/MatrixHeader/headercolumn.h \
+    Matriz/MatrixHeader/headerrow.h

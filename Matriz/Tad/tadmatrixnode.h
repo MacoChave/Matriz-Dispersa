@@ -1,6 +1,7 @@
 #ifndef TADMATRIXNODE_H
 #define TADMATRIXNODE_H
 #include <QString>
+#include <QTextStream>
 
 class TADMatrixNode
 {
@@ -24,6 +25,8 @@ public:
     int compareLevel(TADMatrixNode *value);
     QString getNodeName();
     QString toString();
+    QString createNode();
+    QString pointNode(TADMatrixNode *next);
 };
 
 #endif // TADMATRIXNODE_H

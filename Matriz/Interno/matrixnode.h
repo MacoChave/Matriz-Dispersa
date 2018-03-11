@@ -13,6 +13,12 @@ public:
     MatrixNode();
     MatrixNode(TADMatrixNode *value);
     ~MatrixNode();
+
+    enum
+    {
+        VERTICAL, HORIZONTAL
+    };
+
     TADMatrixNode *getData();
     void setData(TADMatrixNode *value);
     MatrixNode *getPreview();
@@ -29,6 +35,8 @@ public:
     int compareLevel(TADMatrixNode *value);
     QString getNodeName();
     QString toString();
+    QString createNode();
+    QString pointNode(int orientation);
 };
 
 #endif // NODOMATRIZ_H

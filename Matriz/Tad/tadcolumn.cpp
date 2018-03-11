@@ -3,21 +3,20 @@
 TADColumn::TADColumn()
 {
     i = 0;
-    columnInside = new ColumnList();
+    internalColumn = new ColumnList();
 }
 
 TADColumn::TADColumn(int _i)
 {
     i = _i;
-    columnInside = new ColumnList();
+    internalColumn = new ColumnList();
 }
 
 TADColumn::~TADColumn()
 {
     i = 0;
-    if (columnInside != NULL)
-        delete columnInside;
-    columnInside = NULL;
+    delete internalColumn;
+    internalColumn = NULL;
 }
 
 int TADColumn::getI()
@@ -35,14 +34,14 @@ int TADColumn::compare(TADColumn *column)
     return 0;
 }
 
-ColumnList *TADColumn::getColumnInside()
+ColumnList *TADColumn::getInternalColumn()
 {
-    return columnInside;
+    return internalColumn;
 }
 
-MatrixNode *TADColumn::addColumnInside(TADMatrixNode *value)
+MatrixNode *TADColumn::addInternalColumn(TADMatrixNode *value)
 {
-    return columnInside->insert(value);
+    return internalColumn->insert(value);
 }
 
 QString TADColumn::toString()
@@ -55,8 +54,37 @@ QString TADColumn::toString()
 
 QString TADColumn::getNodeName()
 {
-    QString name("node");
+    QString name("Column");
     name.append(QString::number(i));
 
     return name;
+}
+
+QString TADColumn::createNode()
+{
+    QString str;
+    QTextStream createdNode(&str);
+    createdNode << "\t" << getNodeName();
+    createdNode << " [label = \"" << toString() << "\"];\n";
+
+    return str;
+}
+
+QString TADColumn::pointNode(TADColumn *next)
+{
+    QString str;
+    QTextStream nodePointers(&str);
+    if (next != NULL)
+    {
+        nodePointers << "\t" << getNodeName() << " -> " << next->getNodeName() << ";\n";
+        nodePointers << "\t" << next->getNodeName() << " -> " << getNodeName() << ";\n";
+    }
+
+    if (! internalColumn->isEmpty())
+    {
+        nodePointers << "\t" << getNodeName() << " -> " << internalColumn->front()->getNodeName() << ";\n";
+        nodePointers << internalColumn->graph() << "\n";
+    }
+
+    return str;
 }

@@ -1,12 +1,11 @@
 #ifndef TADROW_H
 #define TADROW_H
-#include <QString>
 #include "../Interno/rowlist.h"
 
 class TADRow
 {
     int j;
-    RowList *rowInside;
+    RowList *internalRow;
 public:
     TADRow();
     TADRow(int _j);
@@ -14,10 +13,12 @@ public:
 
     int getJ();
     int compare(TADRow *row);
-    RowList *getRowInside();
-    void addRowInside(MatrixNode *value);
+    RowList *getInternalRow();
+    void addInternalRow(MatrixNode *value);
     QString toString();
     QString getNodeName();
+    QString createNode();
+    QString pointNode(TADRow *next);
 };
 
 #endif // TADROW_H

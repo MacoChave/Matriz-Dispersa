@@ -104,3 +104,26 @@ QString MatrixNode::toString()
 {
     return data->toString();
 }
+
+QString MatrixNode::createNode()
+{
+    return data->createNode();
+}
+
+QString MatrixNode::pointNode(int orientation)
+{
+    if (orientation == VERTICAL)
+    {
+        if (bottom != NULL)
+            return data->pointNode(bottom->getData());
+        else
+            return "";
+    }
+    else
+    {
+        if (next != NULL)
+            return data->pointNode(next->getData());
+        else
+            return "";
+    }
+}

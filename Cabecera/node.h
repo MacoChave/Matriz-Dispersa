@@ -21,7 +21,9 @@ public:
     void setPreview(Node<T> *value);
 
     QString getNameNode();
-    QString getTextNode();
+    QString toString();
+    QString createNode();
+    QString pointNode();
 };
 
 #endif // NODE_H
@@ -95,7 +97,22 @@ QString Node<T>::getNameNode()
 }
 
 template <typename T>
-QString Node<T>::getTextNode()
+QString Node<T>::toString()
 {
     return data->toString();
+}
+
+template <typename T>
+QString Node<T>::createNode()
+{
+    return data->createNode();
+}
+
+template <typename T>
+QString Node<T>::pointNode()
+{
+    if (next != NULL)
+        return data->pointNode(next->getData());
+    else
+        return data->pointNode(NULL);
 }

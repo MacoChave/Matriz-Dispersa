@@ -38,6 +38,7 @@ public:
     T front();
     T back();
     Node<T> *get(T value);
+    QString graph();
     void sort();
     void reverse();
 };
@@ -50,13 +51,17 @@ public:
 template <typename T>
 Node<T> *List<T>::insert(Node<T> *current, T value)
 {
-    if (current != NULL)
+    if (current == NULL)
         return NULL;
 
     int compare = current->getData()->compare(value);
 
     if (compare == 0)
+    {
+        delete value;
+        value = NULL;
         return current;
+    }
     else
     {
         if (compare > 0)
@@ -237,7 +242,7 @@ Node<T> *List<T>::insert(T value)
         else if (tail->getData()->compare(value) < 0)
             return push_back(value);
         else
-            return insert(head->getNext(), value);
+            return insert(head, value);
     }
 }
 
@@ -354,6 +359,23 @@ Node<T> *List<T>::get(T value)
         return get(head->next, value);
     else
         return NULL;
+}
+
+template <typename T>
+QString List<T>::graph()
+{
+    QString listGraph;
+
+    Node<T> *temporal = head;
+    while (temporal != NULL)
+    {
+        listGraph.append(temporal->createNode());
+        listGraph.append(temporal->pointNode());
+
+        temporal = temporal->getNext();
+    }
+
+    return listGraph;
 }
 
 /*

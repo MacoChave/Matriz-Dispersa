@@ -20,7 +20,7 @@ public:
     /* MODIFICADORES */
     void insert(TADMatrixNode *value);
     void erase(int x, int y);
-    TADMatrixNode *get(int x, int y);
+    MatrixNode *get(int x, int y);
     void edit(int x, int y, TADMatrixNode *value);
     void remove(int x, int y, int newX, int newY);
 

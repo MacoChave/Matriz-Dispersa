@@ -8,11 +8,7 @@ MatrixNode *RowList::insert(MatrixNode *current, MatrixNode *value)
     int compare = current->getData()->compareColumn(value->getData());
 
     if (compare == 0)
-    {
-        delete value;
-        value = NULL;
         return current;
-    }
     else
     {
         if (compare > 0)
@@ -35,7 +31,7 @@ MatrixNode *RowList::get(MatrixNode *current, TADMatrixNode *value)
     if (current == NULL)
         return NULL;
 
-    int compare = current->getData()->compareRow(value);
+    int compare = current->getData()->compareColumn(value);
 
     if (compare == 0)
         return current;
@@ -216,13 +212,13 @@ MatrixNode *RowList::get(TADMatrixNode *value)
     if (isEmpty())
             return NULL;
 
-        if (head->getData()->compareRow(value) == 0)
+        if (head->getData()->compareColumn(value) == 0)
             return head;
-        if (tail->getData()->compareRow(value) == 0)
+        if (tail->getData()->compareColumn(value) == 0)
             return tail;
 
-        if (head->getData()->compareRow(value) < 0
-                && tail->getData()->compareRow(value) > 0)
+        if (head->getData()->compareColumn(value) < 0
+                && tail->getData()->compareColumn(value) > 0)
             return get(head->getNext(), value);
         else
             return NULL;

@@ -38,7 +38,18 @@ void Matrix::insert(TADMatrixNode *value)
     Node<TADRow *> *nodeRow = headerRows->insert(row);
 
     node = nodeColumn->getData()->addInternalColumn(value);
-    nodeRow->getData()->addInternalRow(node);
+    if (nodeRow != NULL)
+        nodeRow->getData()->addInternalRow(node);
+}
+
+MatrixNode *Matrix::get(int x, int y)
+{
+    Node<TADColumn *> *nodeColumn = headerColumns->get(new TADColumn(x));
+    MatrixNode *node = NULL;
+    if (nodeColumn != NULL)
+        node = nodeColumn->getData()->getInternalColumn()->get(new TADMatrixNode(x, y));
+
+    return node;
 }
 
 void Matrix::graph(QString filename)

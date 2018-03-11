@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
 
         switch (opcion) {
         case 1:
+        {
             cout << "-----> Insertar <-----" << endl;
             cout << "Coordenada x? ";
             cin >> x;
@@ -32,12 +33,12 @@ int main(int argc, char *argv[])
             cout << "Coordenada y? ";
             cin >> y;
 
-//            sparseMatrix[x, y] = new TADMatrixNode(x, y);
-
             sparseMatrix->insert(new TADMatrixNode(x, y));
 
             break;
+        }
         case 2:
+        {
             cout << "-----> Eliminar <-----" << endl;
             cout << "Coordenada x? ";
             cin >> x;
@@ -46,7 +47,9 @@ int main(int argc, char *argv[])
             cin >> y;
 
             break;
+        }
         case 3:
+        {
             cout << "-----> Buscar <-----" << endl;
 
             cout << "Coordenada x? ";
@@ -55,8 +58,16 @@ int main(int argc, char *argv[])
             cout << "Coordenada y? ";
             cin >> y;
 
+            MatrixNode *node = sparseMatrix->get(x, y);
+            if (node != NULL)
+                cout << "Se encontró el nodo :)" << endl;
+            else
+                cout << "No existe tal nodo :(" << endl;
+
             break;
+        }
         case 4:
+        {
             int nuevoX = 0;
             int nuevoY = 0;
 
@@ -73,6 +84,11 @@ int main(int argc, char *argv[])
             cin >> nuevoY;
 
             break;
+        }
+        default:
+        {
+            cout << "Opción no disponible :(" << endl;
+        }
         }
 
         sparseMatrix->graph("MatrizDispersa");

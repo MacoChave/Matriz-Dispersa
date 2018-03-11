@@ -356,7 +356,7 @@ Node<T> *List<T>::get(T value)
 
     if (head->getData()->compare(value) < 0
             && tail->getData()->compare(value) > 0)
-        return get(head->next, value);
+        return get(head->getNext(), value);
     else
         return NULL;
 }

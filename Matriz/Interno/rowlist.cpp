@@ -162,15 +162,18 @@ MatrixNode *RowList::removeLast()
 
 MatrixNode *RowList::removeOne(TADMatrixNode *value)
 {
-    if (head->getData()->compareRow(value) == 0)
+    if (head->getData()->compareColumn(value) == 0)
         return removeFirst();
-    if (tail->getData()->compareRow(value) == 0)
+    if (tail->getData()->compareColumn(value) == 0)
         return removeLast();
 
-    if (head->getData()->compareRow(value) < 0
-            && tail->getData()->compareRow(value) > 0)
+    if (head->getData()->compareColumn(value) < 0
+            && tail->getData()->compareColumn(value) > 0)
     {
         MatrixNode *temporal = get(head->getNext(), value);
+
+        if (temporal == NULL)
+            return NULL;
 
         if (temporal->getNext() != NULL)
             temporal->getNext()->setPreview(temporal->getPreview());
@@ -212,16 +215,16 @@ MatrixNode *RowList::get(TADMatrixNode *value)
     if (isEmpty())
             return NULL;
 
-        if (head->getData()->compareColumn(value) == 0)
-            return head;
-        if (tail->getData()->compareColumn(value) == 0)
-            return tail;
+    if (head->getData()->compareColumn(value) == 0)
+        return head;
+    if (tail->getData()->compareColumn(value) == 0)
+        return tail;
 
-        if (head->getData()->compareColumn(value) < 0
-                && tail->getData()->compareColumn(value) > 0)
-            return get(head->getNext(), value);
-        else
-            return NULL;
+    if (head->getData()->compareColumn(value) < 0
+            && tail->getData()->compareColumn(value) > 0)
+        return get(head->getNext(), value);
+    else
+        return NULL;
 }
 
 QString RowList::graph()

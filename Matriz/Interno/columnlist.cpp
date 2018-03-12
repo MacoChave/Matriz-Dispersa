@@ -28,10 +28,10 @@ MatrixNode *ColumnList::insert(MatrixNode *current, MatrixNode *value)
 
 MatrixNode *ColumnList::get(MatrixNode *current, TADMatrixNode *value)
 {
-    if (current != NULL)
+    if (current == NULL)
         return NULL;
 
-    int compare = current->getData()->compareColumn(value);
+    int compare = current->getData()->compareRow(value);
 
     if (compare == 0)
     {
@@ -42,8 +42,8 @@ MatrixNode *ColumnList::get(MatrixNode *current, TADMatrixNode *value)
     {
         if (compare < 0)
             return get(current->getBottom(), value);
-
-        return NULL;
+        else
+            return NULL;
     }
 }
 
@@ -161,15 +161,18 @@ MatrixNode *ColumnList::removeLast()
 
 MatrixNode *ColumnList::removeOne(TADMatrixNode *value)
 {
-    if (head->getData()->compareColumn(value) == 0)
+    if (head->getData()->compareRow(value) == 0)
         return removeFirst();
-    if (tail->getData()->compareColumn(value) == 0)
+    if (tail->getData()->compareRow(value) == 0)
         return removeLast();
 
-    if (head->getData()->compareColumn(value) < 0
-            && tail->getData()->compareColumn(value) > 0)
+    if (head->getData()->compareRow(value) < 0
+            && tail->getData()->compareRow(value) > 0)
     {
         MatrixNode *temporal = get(head->getBottom(), value);
+
+        if (temporal == NULL)
+            return NULL;
 
         if (temporal->getBottom() != NULL)
             temporal->getBottom()->setTop(temporal->getTop());

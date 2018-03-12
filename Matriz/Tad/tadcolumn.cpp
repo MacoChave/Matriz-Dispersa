@@ -82,13 +82,13 @@ QString TADColumn::pointNode(TADColumn *next)
     QTextStream nodePointers(&str);
     if (next != NULL)
     {
-        nodePointers << "\t" << getNodeName() << " -> " << next->getNodeName() << ";\n";
-        nodePointers << "\t" << next->getNodeName() << " -> " << getNodeName() << ";\n";
+        nodePointers << "\t" << getNodeName() << " -> " << next->getNodeName() << "  [constraint = true];\n";
+        nodePointers << "\t" << next->getNodeName() << " -> " << getNodeName() << "  [constraint = true];\n";
     }
 
     if (! internalColumn->isEmpty())
     {
-        nodePointers << "\t" << getNodeName() << " -> " << internalColumn->front()->getNodeName() << ";\n";
+        nodePointers << "\t" << getNodeName() << " -> " << internalColumn->front()->getNodeName() << "  [constraint = true];\n";
         nodePointers << internalColumn->graph() << "\n";
     }
 

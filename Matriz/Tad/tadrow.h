@@ -14,7 +14,7 @@ public:
     int getJ();
     int compare(TADRow *row);
     RowList *getInternalRow();
-    void addInternalRow(MatrixNode *value);
+    MatrixNode *addInternalRow(MatrixNode *value);
     QString toString();
     QString getNodeName();
     QString createNode();

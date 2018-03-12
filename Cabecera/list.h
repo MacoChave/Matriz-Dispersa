@@ -60,6 +60,7 @@ Node<T> *List<T>::insert(Node<T> *current, T value)
     {
         delete value;
         value = NULL;
+
         return current;
     }
     else

@@ -41,6 +41,12 @@ ColumnList *TADColumn::getInternalColumn()
 
 MatrixNode *TADColumn::addInternalColumn(TADMatrixNode *value)
 {
+    MatrixNode *node = new MatrixNode(value);
+    return internalColumn->insert(node);
+}
+
+MatrixNode *TADColumn::addInternalColumn(MatrixNode *value)
+{
     return internalColumn->insert(value);
 }
 

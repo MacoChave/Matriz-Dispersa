@@ -39,9 +39,9 @@ RowList *TADRow::getInternalRow()
     return internalRow;
 }
 
-void TADRow::addInternalRow(MatrixNode *value)
+MatrixNode *TADRow::addInternalRow(MatrixNode *value)
 {
-    internalRow->insert(value);
+    return internalRow->insert(value);
 }
 
 QString TADRow::toString()

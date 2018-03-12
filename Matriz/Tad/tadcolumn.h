@@ -15,6 +15,7 @@ public:
     int compare(TADColumn *column);
     ColumnList *getInternalColumn();
     MatrixNode *addInternalColumn(TADMatrixNode *value);
+    MatrixNode *addInternalColumn(MatrixNode *value);
     QString toString();
     QString getNodeName();
     QString createNode();

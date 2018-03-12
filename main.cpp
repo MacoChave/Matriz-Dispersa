@@ -24,71 +24,80 @@ int main(int argc, char *argv[])
         cin >> opcion;
 
         switch (opcion) {
-        case 1:
-        {
-            cout << "-----> Insertar <-----" << endl;
-            cout << "Coordenada x? ";
-            cin >> x;
+            case 0:
+            {
+                cout << "Saliendo :D" << endl;
+                break;
+            }
+            case 1:
+            {
+                cout << "-----> Insertar <-----" << endl;
+                cout << "Coordenada x? ";
+                cin >> x;
 
-            cout << "Coordenada y? ";
-            cin >> y;
+                cout << "Coordenada y? ";
+                cin >> y;
 
-            sparseMatrix->insert(new TADMatrixNode(x, y));
+                sparseMatrix->insert(new TADMatrixNode(x, y));
 
-            break;
-        }
-        case 2:
-        {
-            cout << "-----> Eliminar <-----" << endl;
-            cout << "Coordenada x? ";
-            cin >> x;
+                break;
+            }
+            case 2:
+            {
+                cout << "-----> Eliminar <-----" << endl;
+                cout << "Coordenada x? ";
+                cin >> x;
 
-            cout << "Coordenada y? ";
-            cin >> y;
+                cout << "Coordenada y? ";
+                cin >> y;
 
-            break;
-        }
-        case 3:
-        {
-            cout << "-----> Buscar <-----" << endl;
+                sparseMatrix->erase(x, y);
 
-            cout << "Coordenada x? ";
-            cin >> x;
+                break;
+            }
+            case 3:
+            {
+                cout << "-----> Buscar <-----" << endl;
 
-            cout << "Coordenada y? ";
-            cin >> y;
+                cout << "Coordenada x? ";
+                cin >> x;
 
-            MatrixNode *node = sparseMatrix->get(x, y);
-            if (node != NULL)
-                cout << "Se encontró el nodo :)" << endl;
-            else
-                cout << "No existe tal nodo :(" << endl;
+                cout << "Coordenada y? ";
+                cin >> y;
 
-            break;
-        }
-        case 4:
-        {
-            int nuevoX = 0;
-            int nuevoY = 0;
+                MatrixNode *node = sparseMatrix->get(x, y);
+                if (node != NULL)
+                    cout << "Se encontró el nodo :)" << endl;
+                else
+                    cout << "No existe tal nodo :(" << endl;
 
-            cout << "-----> Editar <-----" << endl;
+                break;
+            }
+            case 4:
+            {
+                int nuevoX = 0;
+                int nuevoY = 0;
 
-            cout << "Coordenada x? ";
-            cin >> x;
-            cout << "Nueva coordenada x? ";
-            cin >> nuevoX;
+                cout << "-----> Editar <-----" << endl;
 
-            cout << "Coordenada y? ";
-            cin >> y;
-            cout << "Nueva coordenada y? ";
-            cin >> nuevoY;
+                cout << "Coordenada x? ";
+                cin >> x;
+                cout << "Nueva coordenada x? ";
+                cin >> nuevoX;
 
-            break;
-        }
-        default:
-        {
-            cout << "Opción no disponible :(" << endl;
-        }
+                cout << "Coordenada y? ";
+                cin >> y;
+                cout << "Nueva coordenada y? ";
+                cin >> nuevoY;
+
+                sparseMatrix->edit(x, y, new TADMatrixNode(nuevoX, nuevoY));
+
+                break;
+            }
+            default:
+            {
+                cout << "Opción no disponible :/" << endl;
+            }
         }
 
         sparseMatrix->graph("MatrizDispersa");

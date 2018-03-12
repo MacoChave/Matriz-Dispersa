@@ -5,7 +5,7 @@
 #include "Tad/tadrow.h"
 #include <QFile>
 #include <QTextStream>
-#include <QDebug>
+#include <QtDebug>
 
 class Matrix
 {
@@ -22,7 +22,7 @@ public:
     void erase(int x, int y);
     MatrixNode *get(int x, int y);
     void edit(int x, int y, TADMatrixNode *value);
-    void remove(int x, int y, int newX, int newY);
+    MatrixNode *remove(int x, int y);
 
     /* OPERACIONES */
     void graph(QString filename);

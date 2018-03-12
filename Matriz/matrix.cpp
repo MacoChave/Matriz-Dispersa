@@ -22,24 +22,46 @@ Matrix::Matrix()
 
 Matrix::~Matrix()
 {
-    qDebug() << "Limpiando memoria de matriz";
+    qDebug() << "Limpiando memoria de matriz :)";
     delete headerColumns;
     delete headerRows;
-    qDebug() << "Memoria de matriz limpia";
+    qDebug() << "Memoria de matriz limpia :D";
 }
 
 void Matrix::insert(TADMatrixNode *value)
 {
     TADColumn *column = new TADColumn(value->getColumnValue());
     TADRow *row = new TADRow(value->getRowValue());
-    MatrixNode *node = NULL;
+    MatrixNode *node = new MatrixNode(value);
 
     Node<TADColumn *> *nodeColumn = headerColumns->insert(column);
     Node<TADRow *> *nodeRow = headerRows->insert(row);
 
-    node = nodeColumn->getData()->addInternalColumn(value);
-    if (nodeRow != NULL)
-        nodeRow->getData()->addInternalRow(node);
+    if (nodeColumn->getData()->addInternalColumn(node) != NULL)
+    {
+        if (nodeRow->getData()->addInternalRow(node) != NULL)
+            qInfo("Se insertó correctamente el nodo :)");
+        else
+        {
+            nodeColumn->getData()->getInternalColumn()->removeOne(value);
+            qWarning("No se pudo insertar el nodo en la fila seleccionada :(");
+        }
+    }
+    else
+    {
+        delete node;
+        node = NULL;
+        qWarning("No se insertó el nodo :(");
+    }
+}
+
+void Matrix::erase(int x, int y)
+{
+    MatrixNode *node = remove(x, y);
+    if (node != NULL)
+        delete node;
+
+    node = NULL;
 }
 
 MatrixNode *Matrix::get(int x, int y)
@@ -52,8 +74,73 @@ MatrixNode *Matrix::get(int x, int y)
     return node;
 }
 
+void Matrix::edit(int x, int y, TADMatrixNode *value)
+{
+    TADColumn *column = new TADColumn(value->getColumnValue());
+    TADRow *row = new TADRow(value->getRowValue());
+    MatrixNode *node = remove(x, y);
+
+    if (node != NULL)
+        return;
+
+    Node<TADColumn *> *nodeColumn = headerColumns->insert(column);
+    Node<TADRow *> *nodeRow = headerRows->insert(row);
+
+    node = nodeColumn->getData()->addInternalColumn(value);
+    if (nodeRow != NULL)
+        nodeRow->getData()->addInternalRow(node);
+}
+
+MatrixNode *Matrix::remove(int x, int y)
+{
+    Node<TADColumn *> *nodeColumn = headerColumns->get(new TADColumn(x));
+    Node<TADRow *> *nodeRow = headerRows->get(new TADRow(y));
+    MatrixNode *node = NULL;
+
+    if (nodeColumn == NULL || nodeRow == NULL)
+        return NULL;
+
+    node = nodeColumn->getData()->getInternalColumn()->get(new TADMatrixNode(x, y));
+
+    if (node == NULL)
+        return NULL;
+
+    if (node->getTop() != NULL)
+    {
+        node->getTop()->setBottom(node->getBottom());
+
+        if (node->getBottom() != NULL)
+            node->getBottom()->setTop(node->getTop());
+    }
+    else
+        nodeColumn->getData()->getInternalColumn()->removeFirst();
+
+
+    if (node->getPreview() != NULL)
+    {
+        node->getPreview()->setNext(node->getNext());
+
+        if (node->getNext() != NULL)
+            node->getNext()->setPreview(node->getPreview());
+    }
+    else
+        nodeRow->getData()->getInternalRow()->removeFirst();
+
+
+    if (nodeColumn->getData()->getInternalColumn()->isEmpty())
+        headerColumns->erase(nodeColumn->getData());
+
+    if (nodeRow->getData()->getInternalRow()->isEmpty())
+        headerRows->erase(nodeRow->getData());
+
+    return node;
+}
+
 void Matrix::graph(QString filename)
 {
+    if (headerColumns->isEmpty() && headerRows->isEmpty())
+        return;
+
     QFile file(filename + ".dot");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {

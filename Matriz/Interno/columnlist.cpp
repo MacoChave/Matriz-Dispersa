@@ -1,26 +1,25 @@
 #include "columnlist.h"
 
-MatrixNode *ColumnList::insert(MatrixNode *current, TADMatrixNode *value)
+MatrixNode *ColumnList::insert(MatrixNode *current, MatrixNode *value)
 {
     if (current == NULL)
         return NULL;
 
-    int compare = current->getData()->compareRow(value);
+    int compare = current->getData()->compareRow(value->getData());
 
     if (compare == 0)
-        return current;
+        return NULL;
     else
     {
         if (compare > 0)
         {
-            MatrixNode *temporal = new MatrixNode(value);
-            temporal->setBottom(current);
-            temporal->setTop(current->getTop());
-            current->getTop()->setBottom(temporal);
-            current->setTop(temporal);
+            value->setBottom(current);
+            value->setTop(current->getTop());
+            current->getTop()->setBottom(value);
+            current->setTop(value);
             count++;
 
-            return temporal;
+            return value;
         }
         else
             return insert(current->getBottom(), value);
@@ -42,7 +41,7 @@ MatrixNode *ColumnList::get(MatrixNode *current, TADMatrixNode *value)
     else
     {
         if (compare < 0)
-            return insert(current->getBottom(), value);
+            return get(current->getBottom(), value);
 
         return NULL;
     }
@@ -76,57 +75,52 @@ void ColumnList::clear()
         removeFirst();
 }
 
-MatrixNode *ColumnList::push_front(TADMatrixNode *value)
+MatrixNode *ColumnList::push_front(MatrixNode *value)
 {
-    MatrixNode *node = new MatrixNode(value);
-
     if (isEmpty())
-        head = tail = node;
+        head = tail = value;
     else
     {
-        node->setBottom(head);
-        head->setTop(node);
-        head = node;
+        value->setBottom(head);
+        head->setTop(value);
+        head = value;
     }
 
     count++;
 
-    return node;
+    return value;
 }
 
-MatrixNode *ColumnList::push_back(TADMatrixNode *value)
+MatrixNode *ColumnList::push_back(MatrixNode *value)
 {
-    MatrixNode *node = new MatrixNode(value);
-
     if (isEmpty())
-        head = tail = node;
+        head = tail = value;
     else
     {
-        node->setTop(tail);
-        tail->setBottom(node);
-        tail = node;
+        value->setTop(tail);
+        tail->setBottom(value);
+        tail = value;
     }
 
     count++;
 
-    return node;
+    return value;
 }
 
-MatrixNode *ColumnList::insert(TADMatrixNode *value)
+MatrixNode *ColumnList::insert(MatrixNode *value)
 {
     if (isEmpty())
     {
-        MatrixNode *temporal = new MatrixNode(value);
-        head = tail = temporal;
+        head = tail = value;
         count++;
 
-        return temporal;
+        return value;
     }
     else
     {
-        if (head->getData()->compareRow(value) > 0)
+        if (head->getData()->compareRow(value->getData()) > 0)
             return push_front(value);
-        else if (tail->getData()->compareRow(value) < 0)
+        else if (tail->getData()->compareRow(value->getData()) < 0)
             return push_back(value);
         else
             return insert(head, value);
@@ -231,7 +225,7 @@ MatrixNode *ColumnList::get(TADMatrixNode *value)
 
 QString ColumnList::graph()
 {
-    QString listGraph;
+    QString listGraph("");
 
     MatrixNode *temporal = head;
     while (temporal != NULL)
